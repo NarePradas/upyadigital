@@ -1,0 +1,474 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Colores */
+:root {
+  --violeta: #8e44ad;
+  --violeta-neon: #a29bfe;
+  --azul-neon: #00f6ff;
+  --negro: #0a0a0a;
+  --blanco: #fff;
+}
+
+
+body {
+  font-family: 'Feliz Titling', sans-serif;
+  background-color: var(--negro);
+  color: var(--blanco);
+  line-height: 1.6;
+  padding-top: 120px; 
+ 
+}
+ @media (max-width: 768px) {
+    body {
+      padding-top: 80px;
+    }
+  }
+
+
+/* Hamburguesa visible en móviles */
+.navbar-toggler {
+  border: none;
+  transition: all 0.3s ease-in-out;
+}
+.navbar-toggler:hover {
+  box-shadow: 
+    0 0 5px #c77dff,
+    0 0 10px #791dc0,
+    0 0 20px #c77dff,
+    0 0 40px #6c2b9d; /* Resplandor */
+}
+
+/* Ícono hamburguesa blanco */
+.navbar-toggler-icon {
+  filter: invert(1);
+}
+
+/* Navbar general */
+.custom-navbar {
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 0.5rem 1rem;
+  /* top: 35px; */
+   z-index: 1000;
+  
+}
+
+/* Logo más pequeño y alineado */
+.logo {
+  height: 100px;
+  width: 95px;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Links de navegación */
+.navbar-nav .nav-link {
+  color: white !important;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-left: 15px;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+  transition: transform 0.3s ease-in-out;
+  transform: scale(1.3);
+  transform: rotate(360deg);
+}
+   
+
+/* Ícono redes sociales */
+/* .social-icon i {
+  font-size: 1.3rem;
+  margin-left: 10px;
+  color: white;
+  transition: color 0.3s ease;
+} */
+
+/* .social-icon i:hover {
+  color: #00f7ff; 
+} */
+
+/* Ajustes en pantallas pequeñas */
+@media (max-width: 992px) {
+  
+  .navbar-nav {
+    text-align: center;
+    
+  }
+
+  .logo {
+    height: 60px; /* Más chico en mobile */
+    width: auto; /* Mantener proporción */
+  }
+}
+
+.navbar ul {
+  display: flex;
+  gap: 20px;
+}
+.navbar a {
+  color: var(--blanco);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.navbar a:hover {
+  color: var(--azul-neon);
+}
+
+ /* Fondo animado */
+.hero-index {
+  text-align: center;
+  padding: 100px 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(155, 89, 182, 1) 0%,
+    rgb(60, 25, 146) 40%,
+    rgb(68, 46, 179) 0%,
+    rgba(210, 204, 204, 0.489) 100%
+  );
+    background-size: 300% 300%;
+   animation: gradientMove 5s ease infinite;
+
+}
+.hero-about{
+   
+  text-align: center;
+  padding: 100px 20px;
+   min-height: 70vh;
+  background: linear-gradient(
+    135deg,
+    rgba(155, 89, 182, 1) 0%,
+    rgb(60, 25, 146) 40%,
+    rgb(68, 46, 179) 0%,
+    rgba(210, 204, 204, 0.489) 100%
+  );
+   background-size: 300% 300%;
+   animation: gradientMove 5s ease infinite;
+}
+
+/* Animación gradiente */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Texto animado */
+.hero h1, .hero p {
+  opacity: 0;
+  transform: translateY(50px);
+  animation: slideIn 1.2s ease-out forwards;
+}
+
+
+/* Keyframes slide */
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn {
+  background: var(--negro);
+  color: var(--blanco);
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: none;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+
+}
+.btn:hover {
+  background: var(--violeta-neon);
+}
+.descripcion{
+  text-align: center;
+  padding: 100px 20 px;
+  color: white;
+  position: relative;
+  overflow:hidden;
+  background-color:  rgba(0, 0, 0, 0.85);
+
+}
+
+.descripcion h2{
+  margin-top: 40px;
+ 
+}
+
+.servicios{
+  position: relative;
+  overflow: hidden;
+  color:white;
+  background-color: rgba(0, 0, 0, 0.85);
+  text-align: center;
+
+}
+
+ .servicios .card {
+  background: #282828bb;
+  color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.servicios .card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+
+}
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+.card {
+  background: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card i {
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.card h4 {
+  margin-bottom: 10px;
+  font-size: 1.25rem;
+}
+
+.card p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.cards-about {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cards-about .tarjeta {
+  background-color: rgba(255, 255, 255, 0.05); /* Fondo sutil/transparente */
+  border-radius: 50%; /* Bordes redondeados (puedes poner 50% si querés círculo completo) */
+  padding: 30px 25px;
+  text-align: center;
+  width: 280px;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  perspective: 1000px; /* Para efecto 3D */
+}
+
+.cards-about .tarjeta:hover {
+  transform: rotateY(10deg) rotateX(5deg) scale(1.05); /* Leve rotación + agrandado */
+  box-shadow: 0 20px 40px #791dc0; /* Sombra más profunda al hover */
+}
+
+.cards-about .tarjeta i {
+  margin-bottom: 15px;
+  font-size: 2.5rem;
+  color: var(--violeta);
+}
+
+.cards-about .tarjeta h4 {
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.cards-about .tarjeta p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.hero-servicios {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Ocupa toda la altura de la pantalla */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 0;
+}
+
+.hero-servicios img.pantallas3d {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* La imagen llena el contenedor sin bordes */
+  z-index: 1;
+  
+}
+.hero-servicios {
+  position: relative;
+  height: 80vh;
+  overflow: hidden;
+}
+
+.hero-servicios img.pantallas3d {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+
+.hero-servicios .btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;           /* Asegura que esté por encima */
+  background: var(--negro);
+  color: var(--blanco); 
+  padding: 12px 24px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.hero-servicios .btn:hover {
+  background: var(--violeta-neon);
+}
+
+
+/* MOBILE FIRST */
+@media (max-width: 768px) {
+  .hero-servicios {
+    height: 80vh; /* Más compacto en móviles */
+  }
+}
+
+/* Botón flotante WhatsApp */
+.whatsapp-float {
+  position: fixed;
+  bottom: 30px;  /* 30px del borde inferior */
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #25D366;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  z-index: 999;
+  animation: pulse 2s infinite;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.2);
+  background-color: #1ebe57;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* Botón flotante subir (arriba del WhatsApp) */
+.scroll-top {
+  position: fixed;
+  bottom: 100px; 
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #beb8b8da;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+  opacity: 0;
+  z-index: 999;
+  animation: pulse 2s infinite;
+}
+
+.scroll-top:hover {
+  transform: scale(1.2);
+  background-color: #beb8b8da;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* Mostrar botones al hacer scroll */
+.scroll-top.show, .whatsapp-float.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Pulse animado */
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(192, 194, 196, 0.747); }
+  70% { box-shadow: 0 0 0 15px rgba(0,123,255,0); }
+  100% { box-shadow: 0 0 0 0 rgba(0,123,255,0); }
+}
+
+.footer {
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* alinea logo y QR verticalmente */
+  gap: 40px; /* separación horizontal */
+  margin-bottom: 20px;
+  flex-wrap: wrap; /* responsive */
+}
+
+.footer-logo {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+   transition: transform 0.3s ease-in-out;
+
+}
+.footer-logo:hover{
+  transform: scale(1.2); /* Efecto sutil al pasar el mouse */
+
+}
+.footer-qr {
+  display: flex;
+  flex-direction: column; /* QR y texto en columna */
+  align-items: center; /* centrar texto debajo del QR */
+}
+.footer-qr img {
+  width: 100px;
+  height: 100px;
+ 
+}
+.footer-qr p {
+  font-size: 0.85rem;
+  margin-top: 5px;
+  color: #ccc;
+}

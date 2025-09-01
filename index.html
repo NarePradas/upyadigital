@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upya Digital</title>
+    <link rel="icon" type="image/png" href="img/android-chrome-512x512.png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+      <style>
+        /* Fondo animado */
+  @keyframes gradientBackground {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+    /* Loader full screen */
+  #loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2e2d2d, #000000, #110332);
+    background-size: 400% 400%;
+    animation: gradientBackground 10s ease infinite;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    color: #fff;
+    text-align: center;
+  }
+
+  /* Texto cargando */
+  #loading-text {
+    font-size: 5rem;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+     position: relative;
+      animation: floatPulse 2s ease-in-out infinite;
+  }
+      @keyframes floatPulse {
+    0%   { transform: translateY(0) scale(1); }
+    25%  { transform: translateY(-10px) scale(1.05); }
+    50%  { transform: translateY(0) scale(1); }
+    75%  { transform: translateY(10px) scale(1.05); }
+    100% { transform: translateY(0) scale(1); }
+  }
+    
+
+  /* Barra de progreso moderna */
+  .progress-container {
+    width: 90%;
+    max-width: 700px;
+    height: 40px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+     animation: floatPulse 2s ease-in-out infinite;
+  }
+
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #000000, #7609d6, #6eff1a);
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Brillo animado sobre la barra */
+  .progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 50%;
+    height: 100%;
+    background: rgba(255,255,255,0.3);
+    transform: skewX(-20deg);
+    animation: shine 1s linear infinite;
+  }
+
+  @keyframes shine {
+    0% { left: -50%; }
+    100% { left: 100%; }
+  }
+
+  #percent {
+    margin-top: 15px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  /* Contenido principal */
+  #content {
+    display: none;
+    text-align: center;
+    padding: 50px;
+  }
+    </style>
+  </head>
+  <body>
+    <!-- Loader -->
+      <div id="loader">
+        <div id="loading-text"> LOADING...</div>
+        <div class="progress-container">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div id="percent">0%</div>
+      </div>
+    <!-- Header -->
+    <header>
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
+        <div class="container-fluid">
+          <!-- Logo -->
+          <a class="navbar-brand" href="index.html">
+            <img src="img/image.png" alt="Upya Digital Logo" class="logo">
+          </a>
+            <!-- Botón Hamburguesa -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <!-- Links -->
+          <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item"><a class="nav-link" href="index.html">INICIO</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">SOBRE NOSOTROS</a></li>
+                <li class="nav-item"><a class="nav-link" href="services.html">SERVICIOS</a></li>
+                <!-- <li class="nav-item"><a class="nav-link" href="portfolio.html">CASOS DE ÉXITO</a></li> -->
+                <li class="nav-item"><a class="nav-link" href="contact.html">CONTACTO</a></li>
+                <li class="nav-item">
+                  <!-- <a href="https://www.instagram.com/jerrys_barberia/" target="_blank" class="nav-link social-icon" title="Instagram">
+                    <i class="bi bi-instagram"></i>
+                  </a> -->
+                </li>
+              </ul>
+            </div>
+        </div>
+      </nav>
+      <!-- Bootstrap y estilos -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    </header>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Hero -->
+    <section class="hero hero-index"data-aos="fade-right">
+      <h1 class="mb-4 fw-bold" style="font-size: 2.5rem;">INNOVACIÓN DIGITAL PARA TU NEGOCIO</h1>
+      <p>En<strong> Upya Digital</strong> transformamos ideas en <strong> soluciones tecnológicas</strong> que impulsan el crecimiento de negocios y proyectos. Nos especializamos en el desarrollo de sitios web modernos, aplicaciones interactivas y <strong> estrategias digitales integrales,</strong> combinando creatividad y tecnología para entregar experiencias únicas y funcionales. Nuestro enfoque está en ofrecer productos escalables, eficientes y adaptados a las necesidades específicas de cada cliente, garantizando resultados medibles y un acompañamiento profesional en cada etapa del proyecto.</p>
+      <br></br>
+      <a href="contact.html" class="btn">¡Empecemos!</a>
+    </section>
+    <!-- Descripcion de lo que hacemos -->
+    <section class="descripcion" data-aos="fade-right">
+      <h2 class="mb-4 fw-bold" style="font-size: 2.5rem;">QUÉ HACEMOS</h2>
+      <h5 class="mb-5" style="font-size: 1.2rem; max-width: 800px; margin: 0 auto;">Ofrecemos soluciones tecnológicas integrales que combinan innovación, diseño y funcionalidad. Desarrollamos sitios web modernos, optimizados y responsivos, creamos aplicaciones web y móviles que facilitan la interacción con tus clientes, y diseñamos herramientas digitales personalizadas para mejorar procesos internos y comunicación. Además, acompañamos a nuestros clientes con estrategias digitales efectivas, soporte técnico y asesoramiento continuo, asegurando que cada proyecto alcance su máximo potencial y se destaque en un entorno competitivo.🚀</h5>
+    </section>  
+    <!-- por que elegirnos -->
+    <section id="porque-elegirnos" class="py-5 text-center" style="background-color: rgba(0, 0, 0, 0.85); color: white;" data-aos="fade-right">
+      <div class="container">
+        <h2 class="mb-4 fw-bold" style="font-size: 2.5rem;">POR QUÉ ELEGIRNOS</h2>
+        <p class="mb-5" style="font-size: 1.2rem; max-width: 800px; margin: 0 auto;">
+          Porque no solo desarrollamos <strong>páginas web modernas, escalables y responsivas</strong>, 
+          sino que ofrecemos una <strong>soluciones de software a medida con un enfoque profesional.</strong>Utilizamos lenguajes de programación y frameworks robustos, aplicamos patrones de diseño y arquitecturas escalables para garantizar calidad, seguridad y rendimiento.  
+          Desde <strong>e-commerce y sistemas de gestión empresarial</strong> hasta <strong>plataformas personalizadas</strong>, 
+          trabajamos con una visión estratégica y experiencia sólida en desarrollo para llevar tu marca y tus proyectos al siguiente nivel.  
+          <br><br>
+        </p>
+        <a href="contact.html" class="btn btn-light btn-lg fw-bold px-4 py-2" style="border-radius: 50px;">
+          Contáctanos
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-top">
+          <!-- Logo -->
+          <img src="img/image.png" alt="Upya Digital" class="footer-logo">
+          
+          <!-- QR de WhatsApp -->
+          <div class="footer-qr">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://wa.me/5492281478521" 
+                alt="WhatsApp QR">
+            <p>Escaneá para contactarnos</p>
+          </div>
+        </div>
+
+        <!-- Texto del footer -->
+        <p>© 2025 Upya Digital. Todos los derechos reservados.</p>
+        <p> <i class="bi bi-geo-alt"></i> Buenos Aires-Argentina</p>
+      </div>
+    </footer>
+    <!-- Botón flotante subir -->
+    <a href="#" class="scroll-top">
+      <i class="bi bi-arrow-up"></i>
+    </a>
+    <!-- Botón flotante WhatsApp -->
+    <a href="https://wa.me/5492281478521" target="_blank" class="whatsapp-float">
+      <i class="bi bi-whatsapp"></i>
+    </a>
+    <script>
+      
+      let progress = 0;
+      const progressBar = document.getElementById('progress-bar');
+      const percent = document.getElementById('percent');
+      const loader = document.getElementById('loader');
+      const content = document.getElementById('content');
+      document.body.style.overflow = 'hidden';
+
+      const interval = setInterval(() => {
+        progress++;
+        progressBar.style.width = progress + '%';
+        percent.textContent = progress + '%';
+
+        if(progress >= 100){
+          clearInterval(interval);
+
+          // fade out loader
+          let opacity = 1;
+          const fadeOut = setInterval(() => {
+            opacity -= 0.05;
+            loader.style.opacity = opacity;
+            if(opacity <= 0){
+              clearInterval(fadeOut);
+              loader.style.display = 'none';
+              content.style.display = 'block';
+            }
+          }, 30);
+        }
+         document.body.style.overflow = 'auto';
+      }, 20); // velocidad rápida
+   
+
+      AOS.init({
+      duration: 1000, // duración de la animación en ms
+      once: false      // se anima siempre que se escrolee
+      });
+      
+      const btnWhatsApp = document.querySelector('.whatsapp-float');
+      const btnScroll = document.querySelector('.scroll-top');
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 200) {
+          btnWhatsApp.classList.add('show');
+          btnScroll.classList.add('show');
+        } else {
+          btnWhatsApp.classList.remove('show');
+          btnScroll.classList.remove('show');
+        }
+      });
+
+      btnScroll.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      
+    </script>
+  </body>
+</html>
