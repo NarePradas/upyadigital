@@ -13,123 +13,114 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
       <style>
-        /* Fondo animado */
-  @keyframes gradientBackground {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-    /* Loader full screen */
-  #loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #2e2d2d, #000000, #110332);
-    background-size: 400% 400%;
-    animation: gradientBackground 10s ease infinite;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    color: #fff;
-    text-align: center;
-  }
+        @keyframes gradientBackground {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+         
+        #loader {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, #2e2d2d, #000000, #110332);
+          background-size: 400% 400%;
+          animation: gradientBackground 10s ease infinite;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          z-index: 9999;
+          color: #fff;
+          text-align: center;
+        }
+        #loading-text {
+          font-size: 3rem;
+          margin-bottom: 30px;
+          letter-spacing: 2px;
+          position: relative;
+            animation: floatPulse 2s ease-in-out infinite;
+        }
+            @keyframes floatPulse {
+          0%   { transform: translateY(0) scale(1); }
+          25%  { transform: translateY(-10px) scale(1.05); }
+          50%  { transform: translateY(0) scale(1); }
+          75%  { transform: translateY(10px) scale(1.05); }
+          100% { transform: translateY(0) scale(1); }
+        }
+          
+        .progress-container {
+          width: 90%;
+          max-width: 700px;
+          height: 40px;
+          background: rgba(255,255,255,0.15);
+          border-radius: 30px;
+          overflow: hidden;
+          box-shadow: 0 0 20px rgba(0,0,0,0.3);
+          animation: floatPulse 2s ease-in-out infinite;
+        }
 
-  /* Texto cargando */
-  #loading-text {
-    font-size: 3rem;
-    margin-bottom: 30px;
-    letter-spacing: 2px;
-     position: relative;
-      animation: floatPulse 2s ease-in-out infinite;
-  }
-      @keyframes floatPulse {
-    0%   { transform: translateY(0) scale(1); }
-    25%  { transform: translateY(-10px) scale(1.05); }
-    50%  { transform: translateY(0) scale(1); }
-    75%  { transform: translateY(10px) scale(1.05); }
-    100% { transform: translateY(0) scale(1); }
-  }
-    
+        .progress-bar {
+          height: 100%;
+          width: 0%;
+          background: linear-gradient(90deg, #000000, #7609d6, #6eff1a);
+          border-radius: 30px;
+          position: relative;
+          overflow: hidden;
+        }
+        .progress-bar::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -50%;
+          width: 50%;
+          height: 100%;
+          background: rgba(255,255,255,0.3);
+          transform: skewX(-20deg);
+          animation: shine 1s linear infinite;
+        }
 
-  /* Barra de progreso moderna */
-  .progress-container {
-    width: 90%;
-    max-width: 700px;
-    height: 40px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 30px;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0,0,0,0.3);
-     animation: floatPulse 2s ease-in-out infinite;
-  }
+        @keyframes shine {
+          0% { left: -50%; }
+          100% { left: 100%; }
+        }
 
-  .progress-bar {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #000000, #7609d6, #6eff1a);
-    border-radius: 30px;
-    position: relative;
-    overflow: hidden;
-  }
+        #percent {
+          margin-top: 15px;
+          font-size: 2rem;
+          font-weight: bold;
+          color: #fff;
+        }
 
-  /* Brillo animado sobre la barra */
-  .progress-bar::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -50%;
-    width: 50%;
-    height: 100%;
-    background: rgba(255,255,255,0.3);
-    transform: skewX(-20deg);
-    animation: shine 1s linear infinite;
-  }
+        #content {
+          display: none;
+          text-align: center;
+          padding: 50px;
+        }
+  
+        @media (min-width: 768px) {
+          #loading-text {
+            font-size: 3vw;
+          }
+          #percent {
+            font-size: 2.5vw;
+          }
+        }
 
-  @keyframes shine {
-    0% { left: -50%; }
-    100% { left: 100%; }
-  }
-
-  #percent {
-    margin-top: 15px;
-    font-size: 2rem;
-    font-weight: bold;
-    color: #fff;
-  }
-
-  /* Contenido principal */
-  #content {
-    display: none;
-    text-align: center;
-    padding: 50px;
-  }
-    /* Tablets y pantallas medianas */
-  @media (min-width: 768px) {
-    #loading-text {
-      font-size: 3vw;
-    }
-    #percent {
-      font-size: 2.5vw;
-    }
-  }
-
-  /* Desktop y pantallas grandes */
-  @media (min-width: 1024px) {
-    #loading-text {
-      font-size: 2vw;
-    }
-    #percent {
-      font-size: 1.5vw;
-    }
-  }
+        @media (min-width: 1024px) {
+          #loading-text {
+            font-size: 2vw;
+          }
+          #percent {
+            font-size: 1.5vw;
+          }
+        }
     </style>
   </head>
   <body>
-    <!-- Loader -->
+  
       <div id="loader">
         <div id="loading-text"> LOADING...</div>
         <div class="progress-container">
@@ -137,7 +128,7 @@
         </div>
         <div id="percent">0%</div>
       </div>
-    <!-- Header -->
+    
     <header>
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
@@ -172,21 +163,21 @@
       <link rel="stylesheet" href="css/style.css">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     </header>
-    <!-- Bootstrap JS -->
+  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Hero -->
+  
     <section class="hero hero-index"data-aos="fade-right">
       <h1 class="mb-4 fw-bold" style="font-size: 2.5rem;">INNOVACIÓN DIGITAL PARA TU NEGOCIO</h1>
       <p>En<strong> Upya Digital</strong> transformamos ideas en <strong> soluciones tecnológicas</strong> que impulsan el crecimiento de negocios y proyectos. Nos especializamos en el desarrollo de sitios web modernos, aplicaciones interactivas y <strong> estrategias digitales integrales,</strong> combinando creatividad y tecnología para entregar experiencias únicas y funcionales. Nuestro enfoque está en ofrecer productos escalables, eficientes y adaptados a las necesidades específicas de cada cliente, garantizando resultados medibles y un acompañamiento profesional en cada etapa del proyecto.</p>
       <br></br>
       <a href="contact.html" class="btn">¡Empecemos!</a>
     </section>
-    <!-- Descripcion de lo que hacemos -->
+  
     <section class="descripcion" data-aos="fade-right">
       <h2 class="mb-4 fw-bold" style="font-size: 2.5rem;">QUÉ HACEMOS</h2>
       <h5 class="mb-5" style="font-size: 1.2rem; max-width: 800px; margin: 0 auto;">Ofrecemos soluciones tecnológicas integrales que combinan innovación, diseño y funcionalidad. Desarrollamos sitios web modernos, optimizados y responsivos, creamos aplicaciones web y móviles que facilitan la interacción con tus clientes, y diseñamos herramientas digitales personalizadas para mejorar procesos internos y comunicación. Además, acompañamos a nuestros clientes con estrategias digitales efectivas, soporte técnico y asesoramiento continuo, asegurando que cada proyecto alcance su máximo potencial y se destaque en un entorno competitivo.🚀</h5>
     </section>  
-    <!-- por que elegirnos -->
+    
     <section id="porque-elegirnos" class="py-5 text-center" style="background-color: rgba(0, 0, 0, 0.85); color: white;" data-aos="fade-right">
       <div class="container">
         <h2 class="mb-4 fw-bold" style="font-size: 2.5rem;">POR QUÉ ELEGIRNOS</h2>
@@ -203,36 +194,27 @@
       </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-top">
-          <!-- Logo -->
           <img src="img/image.png" alt="Upya Digital" class="footer-logo">
-          
-          <!-- QR de WhatsApp -->
           <div class="footer-qr">
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://wa.me/5492281478521" 
                 alt="WhatsApp QR">
             <p>Escaneá para contactarnos</p>
           </div>
         </div>
-
-        <!-- Texto del footer -->
         <p>© 2025 Upya Digital. Todos los derechos reservados.</p>
         <p> <i class="bi bi-geo-alt"></i> Buenos Aires-Argentina</p>
       </div>
     </footer>
-    <!-- Botón flotante subir -->
     <a href="#" class="scroll-top">
       <i class="bi bi-arrow-up"></i>
     </a>
-    <!-- Botón flotante WhatsApp -->
     <a href="https://wa.me/5492281478521" target="_blank" class="whatsapp-float">
       <i class="bi bi-whatsapp"></i>
     </a>
     <script>
-      
       let progress = 0;
       const progressBar = document.getElementById('progress-bar');
       const percent = document.getElementById('percent');
@@ -247,8 +229,6 @@
 
         if(progress >= 100){
           clearInterval(interval);
-
-          // fade out loader
           let opacity = 1;
           const fadeOut = setInterval(() => {
             opacity -= 0.05;
@@ -261,12 +241,12 @@
           }, 30);
         }
          document.body.style.overflow = 'auto';
-      }, 20); // velocidad rápida
+      }, 20); 
    
 
       AOS.init({
-      duration: 1000, // duración de la animación en ms
-      once: false      // se anima siempre que se escrolee
+      duration: 1000, 
+      once: false  
       });
       
       const btnWhatsApp = document.querySelector('.whatsapp-float');
