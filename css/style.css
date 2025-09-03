@@ -4,8 +4,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-/* Colores */
 :root {
   --violeta: #8e44ad;
   --violeta-neon: #a29bfe;
@@ -14,14 +12,12 @@
   --blanco: #fff;
 }
 
-
 body {
-  font-family: 'Feliz Titling', sans-serif;
+  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--negro);
   color: var(--blanco);
   line-height: 1.6;
   padding-top: 120px; 
- 
 }
  @media (max-width: 768px) {
     body {
@@ -29,8 +25,111 @@ body {
     }
   }
 
+ @keyframes gradientBackground {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+         
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2e2d2d, #000000, #110332);
+  background-size: 400% 400%;
+  animation: gradientBackground 10s ease infinite;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  color: #fff;
+  text-align: center;
+}
+#loading-text {
+  font-size: 3rem;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+  position: relative;
+    animation: floatPulse 2s ease-in-out infinite;
+}
+    @keyframes floatPulse {
+  0%   { transform: translateY(0) scale(1); }
+  25%  { transform: translateY(-10px) scale(1.05); }
+  50%  { transform: translateY(0) scale(1); }
+  75%  { transform: translateY(10px) scale(1.05); }
+  100% { transform: translateY(0) scale(1); }
+}
+  
+.progress-container {
+  width: 90%;
+  max-width: 700px;
+  height: 40px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  animation: floatPulse 2s ease-in-out infinite;
+}
 
-/* Hamburguesa visible en móviles */
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #000000, #7609d6, #6eff1a);
+  border-radius: 30px;
+  position: relative;
+  overflow: hidden;
+}
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255,255,255,0.3);
+  transform: skewX(-20deg);
+  animation: shine 1s linear infinite;
+}
+
+@keyframes shine {
+  0% { left: -50%; }
+  100% { left: 100%; }
+}
+
+#percent {
+  margin-top: 15px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+#content {
+  display: none;
+  text-align: center;
+  padding: 50px;
+}
+
+@media (min-width: 768px) {
+  #loading-text {
+    font-size: 3vw;
+  }
+  #percent {
+    font-size: 2.5vw;
+  }
+}
+
+@media (min-width: 1024px) {
+  #loading-text {
+    font-size: 2vw;
+  }
+  #percent {
+    font-size: 1.5vw;
+  }
+}
+
 .navbar-toggler {
   border: none;
   transition: all 0.3s ease-in-out;
@@ -43,12 +142,10 @@ body {
     0 0 40px #6c2b9d; /* Resplandor */
 }
 
-/* Ícono hamburguesa blanco */
 .navbar-toggler-icon {
   filter: invert(1);
 }
 
-/* Navbar general */
 .custom-navbar {
   background-color: rgba(0, 0, 0, 0.85);
   padding: 0.5rem 1rem;
@@ -57,14 +154,12 @@ body {
   
 }
 
-/* Logo más pequeño y alineado */
 .logo {
   height: 100px;
   width: 95px;
   transition: transform 0.3s ease-in-out;
 }
 
-/* Links de navegación */
 .navbar-nav .nav-link {
   color: white !important;
   font-size: 1.1rem;
@@ -79,31 +174,16 @@ body {
   transform: rotate(360deg);
 }
    
-
-/* Ícono redes sociales */
-/* .social-icon i {
-  font-size: 1.3rem;
-  margin-left: 10px;
-  color: white;
-  transition: color 0.3s ease;
-} */
-
-/* .social-icon i:hover {
-  color: #00f7ff; 
-} */
-
-/* Ajustes en pantallas pequeñas */
 @media (max-width: 992px) {
   
   .navbar-nav {
     text-align: center;
     
   }
-
-  .logo {
-    height: 60px; /* Más chico en mobile */
-    width: auto; /* Mantener proporción */
-  }
+.logo {
+  height: 60px; 
+  width: auto; 
+}
 }
 
 .navbar ul {
@@ -119,51 +199,45 @@ body {
   color: var(--azul-neon);
 }
 
- /* Fondo animado */
-.hero-index {
+ .hero-index {
   text-align: center;
   padding: 100px 20px;
-  background: linear-gradient(
-    135deg,
-    rgba(155, 89, 182, 1) 0%,
-    rgb(60, 25, 146) 40%,
-    rgb(68, 46, 179) 0%,
-    rgba(210, 204, 204, 0.489) 100%
-  );
-    background-size: 300% 300%;
-   animation: gradientMove 5s ease infinite;
-
+  background: radial-gradient(
+      circle at center,
+      rgba(34, 239, 222, 0.799) 0%,
+      rgba(174, 173, 173, 0.15) 40%,
+      rgba(11, 11, 11, 0.95) 80%,
+      rgba(0, 0, 0, 0.85) 100%
+    );
+  background-size: 200% 200%;
+  animation: gradientMove 4s ease-in-out infinite;
+}
+@keyframes gradientMove {
+  0% {
+    background-position: 50% 50%;
+  }
+  50% {
+    background-position: 60% 40%;
+  }
+  100% {
+    background-position: 50% 50%;
+  }
 }
 .hero-about{
    
-  text-align: center;
+ text-align: center;
   padding: 100px 20px;
-   min-height: 70vh;
-  background: linear-gradient(
-    135deg,
-    rgba(155, 89, 182, 1) 0%,
-    rgb(60, 25, 146) 40%,
-    rgb(68, 46, 179) 0%,
-    rgba(210, 204, 204, 0.489) 100%
-  );
-   background-size: 300% 300%;
-   animation: gradientMove 5s ease infinite;
+  background: radial-gradient(
+      circle at center,
+      rgba(234, 255, 1, 0.863) 0%,
+      rgba(174, 173, 173, 0.15) 40%,
+      rgba(11, 11, 11, 0.95) 80%,
+      rgba(0, 0, 0, 0.85) 100%
+    );
+  background-size: 200% 200%;
+  animation: gradientMove 4s ease-in-out infinite;
 }
 
-/* Animación gradiente */
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Texto animado */
 .hero h1, .hero p {
   opacity: 0;
   transform: translateY(50px);
@@ -171,7 +245,6 @@ body {
 }
 
 
-/* Keyframes slide */
 @keyframes slideIn {
   to {
     opacity: 1;
@@ -188,6 +261,7 @@ body {
   text-decoration: none;
   font-weight: bold;
   transition: all 0.3s ease;
+  animation: pulse 2s infinite;
 
 }
 .btn:hover {
@@ -202,12 +276,10 @@ body {
   background-color:  rgba(0, 0, 0, 0.85);
 
 }
-
 .descripcion h2{
   margin-top: 40px;
  
 }
-
 .servicios{
   position: relative;
   overflow: hidden;
@@ -216,7 +288,6 @@ body {
   text-align: center;
 
 }
-
  .servicios .card {
   background: #282828bb;
   color: white;
@@ -262,10 +333,9 @@ body {
   justify-content: center;
   flex-wrap: wrap;
 }
-
 .cards-about .tarjeta {
-  background-color: rgba(255, 255, 255, 0.05); /* Fondo sutil/transparente */
-  border-radius: 50%; /* Bordes redondeados (puedes poner 50% si querés círculo completo) */
+  background-color: rgba(255, 255, 255, 0.05); 
+  border-radius: 50%; 
   padding: 30px 25px;
   text-align: center;
   width: 280px;
@@ -275,12 +345,12 @@ body {
   justify-content: center;
   align-items: center;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
-  perspective: 1000px; /* Para efecto 3D */
+  perspective: 1000px; 
 }
 
 .cards-about .tarjeta:hover {
-  transform: rotateY(10deg) rotateX(5deg) scale(1.05); /* Leve rotación + agrandado */
-  box-shadow: 0 20px 40px #791dc0; /* Sombra más profunda al hover */
+  transform: rotateY(10deg) rotateX(5deg) scale(1.05); 
+  box-shadow: 0 20px 40px #1bc5e3; 
 }
 
 .cards-about .tarjeta i {
@@ -301,7 +371,7 @@ body {
 .hero-servicios {
   position: relative;
   width: 100%;
-  height: 100vh; /* Ocupa toda la altura de la pantalla */
+  height: 100vh; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -315,9 +385,8 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* La imagen llena el contenedor sin bordes */
+  object-fit: cover;
   z-index: 1;
-  
 }
 .hero-servicios {
   position: relative;
@@ -334,14 +403,12 @@ body {
   object-fit: cover;
   z-index: 1;
 }
-
-
 .hero-servicios .btn {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2;           /* Asegura que esté por encima */
+  z-index: 2;    
   background: var(--negro);
   color: var(--blanco); 
   padding: 12px 24px;
@@ -350,23 +417,19 @@ body {
   font-weight: bold;
   transition: 0.3s;
 }
-
 .hero-servicios .btn:hover {
   background: var(--violeta-neon);
 }
 
-
-/* MOBILE FIRST */
 @media (max-width: 768px) {
   .hero-servicios {
     height: 80vh; /* Más compacto en móviles */
   }
 }
 
-/* Botón flotante WhatsApp */
 .whatsapp-float {
   position: fixed;
-  bottom: 30px;  /* 30px del borde inferior */
+  bottom: 30px; 
   right: 30px;
   width: 60px;
   height: 60px;
@@ -390,7 +453,6 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
-/* Botón flotante subir (arriba del WhatsApp) */
 .scroll-top {
   position: fixed;
   bottom: 100px; 
@@ -417,7 +479,6 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
-/* Mostrar botones al hacer scroll */
 .scroll-top.show, .whatsapp-float.show {
   opacity: 1;
   transform: translateY(0);
@@ -440,10 +501,10 @@ body {
 .footer-top {
   display: flex;
   justify-content: center;
-  align-items: center; /* alinea logo y QR verticalmente */
-  gap: 40px; /* separación horizontal */
+  align-items: center;
+  gap: 40px; 
   margin-bottom: 20px;
-  flex-wrap: wrap; /* responsive */
+  flex-wrap: wrap; 
 }
 
 .footer-logo {
@@ -471,4 +532,13 @@ body {
   font-size: 0.85rem;
   margin-top: 5px;
   color: #ccc;
+}
+.link-instagram {
+  color: #fff; 
+  text-decoration:underline; 
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+.link-instagram:hover {
+  color: #8031df; 
 }

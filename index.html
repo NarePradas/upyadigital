@@ -9,139 +9,29 @@
     <meta name="author" content="Upya Digital">
     <link rel="canonical" href="https://www.upyadigital.com/">
     <link rel="icon" type="image/png" href="img/android-chrome-512x512.png">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-      <style>
-        @keyframes gradientBackground {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-         
-        #loader {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(135deg, #2e2d2d, #000000, #110332);
-          background-size: 400% 400%;
-          animation: gradientBackground 10s ease infinite;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          z-index: 9999;
-          color: #fff;
-          text-align: center;
-        }
-        #loading-text {
-          font-size: 3rem;
-          margin-bottom: 30px;
-          letter-spacing: 2px;
-          position: relative;
-            animation: floatPulse 2s ease-in-out infinite;
-        }
-            @keyframes floatPulse {
-          0%   { transform: translateY(0) scale(1); }
-          25%  { transform: translateY(-10px) scale(1.05); }
-          50%  { transform: translateY(0) scale(1); }
-          75%  { transform: translateY(10px) scale(1.05); }
-          100% { transform: translateY(0) scale(1); }
-        }
-          
-        .progress-container {
-          width: 90%;
-          max-width: 700px;
-          height: 40px;
-          background: rgba(255,255,255,0.15);
-          border-radius: 30px;
-          overflow: hidden;
-          box-shadow: 0 0 20px rgba(0,0,0,0.3);
-          animation: floatPulse 2s ease-in-out infinite;
-        }
-
-        .progress-bar {
-          height: 100%;
-          width: 0%;
-          background: linear-gradient(90deg, #000000, #7609d6, #6eff1a);
-          border-radius: 30px;
-          position: relative;
-          overflow: hidden;
-        }
-        .progress-bar::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -50%;
-          width: 50%;
-          height: 100%;
-          background: rgba(255,255,255,0.3);
-          transform: skewX(-20deg);
-          animation: shine 1s linear infinite;
-        }
-
-        @keyframes shine {
-          0% { left: -50%; }
-          100% { left: 100%; }
-        }
-
-        #percent {
-          margin-top: 15px;
-          font-size: 2rem;
-          font-weight: bold;
-          color: #fff;
-        }
-
-        #content {
-          display: none;
-          text-align: center;
-          padding: 50px;
-        }
-  
-        @media (min-width: 768px) {
-          #loading-text {
-            font-size: 3vw;
-          }
-          #percent {
-            font-size: 2.5vw;
-          }
-        }
-
-        @media (min-width: 1024px) {
-          #loading-text {
-            font-size: 2vw;
-          }
-          #percent {
-            font-size: 1.5vw;
-          }
-        }
-    </style>
   </head>
   <body>
-  
       <div id="loader">
+        <div id="content" style="display:none;"></div>
         <div id="loading-text"> LOADING...</div>
         <div class="progress-container">
           <div class="progress-bar" id="progress-bar"></div>
         </div>
         <div id="percent">0%</div>
       </div>
-    
     <header>
-      <!-- Navbar -->
       <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
         <div class="container-fluid">
-          <!-- Logo -->
           <a class="navbar-brand" href="index.html">
             <img src="img/image.png" alt="Upya Digital Logo" class="logo">
           </a>
-            <!-- Botón Hamburguesa -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <!-- Links -->
           <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item"><a class="nav-link" href="index.html">INICIO</a></li>
@@ -150,34 +40,29 @@
                 <!-- <li class="nav-item"><a class="nav-link" href="portfolio.html">CASOS DE ÉXITO</a></li> -->
                 <li class="nav-item"><a class="nav-link" href="contact.html">CONTACTO</a></li>
                 <li class="nav-item">
-                  <!-- <a href="https://www.instagram.com/jerrys_barberia/" target="_blank" class="nav-link social-icon" title="Instagram">
+                  <a href="https://www.instagram.com/upya_digital/" target="_blank" class="nav-link social-icon" title="Instagram">
                     <i class="bi bi-instagram"></i>
-                  </a> -->
+                  </a>
                 </li>
               </ul>
             </div>
         </div>
       </nav>
-      <!-- Bootstrap y estilos -->
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
       <link rel="stylesheet" href="css/style.css">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     </header>
-  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
     <section class="hero hero-index"data-aos="fade-right">
       <h1 class="mb-4 fw-bold" style="font-size: 2.5rem;">INNOVACIÓN DIGITAL PARA TU NEGOCIO</h1>
-      <p>En<strong> Upya Digital</strong> transformamos ideas en <strong> soluciones tecnológicas</strong> que impulsan el crecimiento de negocios y proyectos. Nos especializamos en el desarrollo de sitios web modernos, aplicaciones interactivas y <strong> estrategias digitales integrales,</strong> combinando creatividad y tecnología para entregar experiencias únicas y funcionales. Nuestro enfoque está en ofrecer productos escalables, eficientes y adaptados a las necesidades específicas de cada cliente, garantizando resultados medibles y un acompañamiento profesional en cada etapa del proyecto.</p>
+      <h5>En<strong> Upya Digital</strong> transformamos ideas en <strong> soluciones tecnológicas</strong> que impulsan el crecimiento de negocios y proyectos. Nos especializamos en el desarrollo de sitios web modernos, aplicaciones interactivas <strong> con estrategias digitales,</strong> combinando creatividad y tecnología para entregar <strong>experiencias únicas</strong>. Ofrecemos productos funcionales, personalizados y escalables.</h5>
       <br></br>
       <a href="contact.html" class="btn">¡Empecemos!</a>
     </section>
-  
     <section class="descripcion" data-aos="fade-right">
       <h2 class="mb-4 fw-bold" style="font-size: 2.5rem;">QUÉ HACEMOS</h2>
-      <h5 class="mb-5" style="font-size: 1.2rem; max-width: 800px; margin: 0 auto;">Ofrecemos soluciones tecnológicas integrales que combinan innovación, diseño y funcionalidad. Desarrollamos sitios web modernos, optimizados y responsivos, creamos aplicaciones web y móviles que facilitan la interacción con tus clientes, y diseñamos herramientas digitales personalizadas para mejorar procesos internos y comunicación. Además, acompañamos a nuestros clientes con estrategias digitales efectivas, soporte técnico y asesoramiento continuo, asegurando que cada proyecto alcance su máximo potencial y se destaque en un entorno competitivo.🚀</h5>
+      <h5 class="mb-5" style="font-size: 1.2rem; max-width: 800px; margin: 0 auto;">Nos apasiona crear <strong>SOLUCIONES TECNOLÓGICAS</strong> que combinen innovación, diseño y funcionalidad. Desarrollamos sitios web optimizados y responsivos para profesionales independientes, PyMES y empresas que quieran digitalizar sus procesos y visualizarse en el Mercado. Además, acompañamos a nuestros clientes con estrategias digitales efectivas, <strong>soporte técnico</strong> y asesoramiento continuo, asegurando que cada proyecto alcance su máximo potencial y se destaque en un entorno competitivo.🚀</h5>
     </section>  
-    
     <section id="porque-elegirnos" class="py-5 text-center" style="background-color: rgba(0, 0, 0, 0.85); color: white;" data-aos="fade-right">
       <div class="container">
         <h2 class="mb-4 fw-bold" style="font-size: 2.5rem;">POR QUÉ ELEGIRNOS</h2>
@@ -193,7 +78,6 @@
         </a>
       </div>
     </section>
-
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-top">
@@ -205,6 +89,11 @@
           </div>
         </div>
         <p>© 2025 Upya Digital. Todos los derechos reservados.</p>
+        <p>
+        <a href="https://instagram.com/upya_digital" target="_blank" rel="noopener noreferrer" class="link-instagram">
+          <i class="bi bi-instagram"></i> Instagram
+        </a>
+      </p>
         <p> <i class="bi bi-geo-alt"></i> Buenos Aires-Argentina</p>
       </div>
     </footer>
