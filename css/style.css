@@ -7,15 +7,15 @@
 :root {
   --violeta: #8e44ad;
   --violeta-neon: #a29bfe;
-  --azul-neon: #00f6ff;
-  --negro: #0a0a0a;
+  --azul-neon: #1f0774;
+  --negro: #000000;
   --blanco: #fff;
 }
 
 body {
-  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--negro);
-  color: var(--blanco);
+  font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--blanco);
+  color: var(--negro);
   line-height: 1.6;
   padding-top: 120px; 
 }
@@ -171,7 +171,7 @@ body {
 .navbar-nav .nav-link:hover {
   transition: transform 0.3s ease-in-out;
   transform: scale(1.3);
-  transform: rotate(360deg);
+  
 }
    
 @media (max-width: 992px) {
@@ -197,45 +197,6 @@ body {
 }
 .navbar a:hover {
   color: var(--azul-neon);
-}
-
- .hero-index {
-  text-align: center;
-  padding: 100px 20px;
-  background: radial-gradient(
-      circle at center,
-      rgba(34, 239, 222, 0.799) 0%,
-      rgba(174, 173, 173, 0.15) 40%,
-      rgba(11, 11, 11, 0.95) 80%,
-      rgba(0, 0, 0, 0.85) 100%
-    );
-  background-size: 200% 200%;
-  animation: gradientMove 4s ease-in-out infinite;
-}
-@keyframes gradientMove {
-  0% {
-    background-position: 50% 50%;
-  }
-  50% {
-    background-position: 60% 40%;
-  }
-  100% {
-    background-position: 50% 50%;
-  }
-}
-.hero-about{
-   
- text-align: center;
-  padding: 100px 20px;
-  background: radial-gradient(
-      circle at center,
-      rgba(234, 255, 1, 0.863) 0%,
-      rgba(174, 173, 173, 0.15) 40%,
-      rgba(11, 11, 11, 0.95) 80%,
-      rgba(0, 0, 0, 0.85) 100%
-    );
-  background-size: 200% 200%;
-  animation: gradientMove 4s ease-in-out infinite;
 }
 
 .hero h1, .hero p {
@@ -267,13 +228,35 @@ body {
 .btn:hover {
   background: var(--violeta-neon);
 }
-.descripcion{
-  text-align: center;
-  padding: 100px 20 px;
-  color: white;
+.descripcion , #porque-elegirnos, .hero-index, .hero-about , .tienda-online{
+
+  color: rgb(255, 255, 255);
   position: relative;
   overflow:hidden;
-  background-color:  rgba(0, 0, 0, 0.85);
+  background-color:  rgba(255, 255, 255, 0.85);
+  text-align: center;
+  padding: 100px 20px;
+  background: radial-gradient(
+      circle at center,
+      rgba(19, 2, 39, 0.944) 0%,
+      rgba(174, 173, 173, 0.15) 40%,
+      rgba(11, 11, 11, 0.95) 80%,
+      rgba(0, 0, 0, 0.85) 100%
+    );
+  background-size: 200% 200%;
+  animation: gradientMove 4s ease-in-out infinite;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 50% 50%;
+  }
+  50% {
+    background-position: 60% 40%;
+  }
+  100% {
+    background-position: 50% 50%;
+  }
 
 }
 .descripcion h2{
@@ -350,7 +333,7 @@ body {
 
 .cards-about .tarjeta:hover {
   transform: rotateY(10deg) rotateX(5deg) scale(1.05); 
-  box-shadow: 0 20px 40px #1bc5e3; 
+  box-shadow: 0 20px 40px #5606a5; 
 }
 
 .cards-about .tarjeta i {
