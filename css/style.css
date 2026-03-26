@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
 }
 :root {
   --violeta: #8e44ad;
@@ -13,7 +14,7 @@
 }
 
 body {
-  font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Montserrat', 'Segoe UI', sans-serif;
   background-color: var(--blanco);
   color: var(--negro);
   line-height: 1.6;
