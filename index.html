@@ -1,150 +1,1099 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upya Digital</title>
-    <meta name="description" content="Agencia digital que desarrolla páginas web, chatbots y soluciones tecnológicas en Argentina.">
-    <meta name="keywords" content="Upya Digital, desarrollo web, chatbots, marketing digital, diseño web">
-    <meta name="author" content="Upya Digital">
-    <link rel="canonical" href="https://www.upyadigital.com/">
-    <link rel="icon" type="image/png" href="img/android-chrome-512x512.png">
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  </head>
-  <body>
-      <div id="loader">
-        <div id="content" style="display:none;"></div>
-        <div id="loading-text"> LOADING...</div>
-        <div class="progress-container">
-          <div class="progress-bar" id="progress-bar"></div>
-        </div>
-        <div id="percent">0%</div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upya Digital — Innovación que impulsa negocios</title>
+  <meta name="description" content="Agencia digital que desarrolla páginas web, chatbots y soluciones tecnológicas en Argentina.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --v: #7c3aed;
+      --v2: #a855f7;
+      --neon: #c084fc;
+      --accent: #06d6a0;
+      --dark: #09090b;
+      --dark2: #111114;
+      --dark3: #18181b;
+      --mid: #27272a;
+      --border: rgba(255,255,255,0.07);
+      --text: #e4e4e7;
+      --muted: #71717a;
+      --white: #ffffff;
+      --r: 16px;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: var(--v); border-radius: 4px; }
+
+    /* ─── CURSOR ─── */
+    .cursor {
+      position: fixed; width: 10px; height: 10px; border-radius: 50%;
+      background: var(--neon); pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%); transition: transform 0.1s;
+      mix-blend-mode: exclusion;
+    }
+    .cursor-ring {
+      position: fixed; width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--neon); pointer-events: none; z-index: 9998;
+      transform: translate(-50%,-50%); transition: transform 0.18s, width 0.2s, height 0.2s, opacity 0.2s;
+      opacity: 0.5;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      opacity: 0.4;
+    }
+
+    #loader {
+      position: fixed; inset: 0; background: var(--dark); z-index: 9997;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 24px; transition: opacity 0.6s ease;
+    }
+    #loader .l-logo {
+      font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800;
+      letter-spacing: -1px; color: var(--white);
+    }
+    #loader .l-logo span { color: var(--neon); }
+    .l-bar-wrap {
+      width: 220px; height: 3px; background: var(--mid); border-radius: 3px; overflow: hidden;
+    }
+    .l-bar {
+      height: 100%; width: 0%; background: linear-gradient(90deg, var(--v), var(--neon));
+      border-radius: 3px; transition: width 0.05s linear;
+    }
+    .l-pct { font-size: 0.8rem; color: var(--muted); letter-spacing: 2px; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 70px;
+      background: rgba(9,9,11,0); backdrop-filter: blur(0px);
+      transition: background 0.4s, backdrop-filter 0.4s, border-bottom 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(9,9,11,0.92); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800;
+      color: var(--white); text-decoration: none; letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--neon); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.85rem;
+      letter-spacing: 1.5px; font-weight: 500; text-transform: uppercase;
+      transition: color 0.2s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px; background: var(--neon); transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      background: var(--v); color: var(--white) !important;
+      padding: 8px 20px; border-radius: 50px; font-size: 0.8rem !important;
+      letter-spacing: 1px !important; transition: background 0.3s !important;
+    }
+    .nav-cta:hover { background: var(--v2) !important; }
+    .nav-cta::after { display: none !important; }
+
+    /* burger */
+    .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .burger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: 0.3s; }
+
+    /* mobile menu */
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; background: var(--dark2); z-index: 99;
+      flex-direction: column; align-items: center; justify-content: center; gap: 40px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 700;
+      color: var(--white); text-decoration: none; letter-spacing: -0.5px;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--neon); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 100px 5vw 80px; position: relative; overflow: hidden;
+    }
+
+    /* animated gradient orbs */
+    .orb {
+      position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none;
+      animation: orbFloat 8s ease-in-out infinite;
+    }
+    .orb1 { width: 500px; height: 500px; background: rgba(124,58,237,0.18); top: -100px; left: -150px; }
+    .orb2 { width: 400px; height: 400px; background: rgba(168,85,247,0.12); bottom: -80px; right: -100px; animation-delay: -4s; }
+    .orb3 { width: 300px; height: 300px; background: rgba(6,214,160,0.07); top: 40%; left: 60%; animation-delay: -2s; }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0,0) scale(1); }
+      33% { transform: translate(30px,-20px) scale(1.05); }
+      66% { transform: translate(-20px,30px) scale(0.96); }
+    }
+
+    /* grid bg */
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    }
+
+    .hero-inner { position: relative; z-index: 1; max-width: 820px; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.35);
+      padding: 6px 16px; border-radius: 50px; font-size: 0.75rem;
+      color: var(--neon); letter-spacing: 1.5px; text-transform: uppercase;
+      margin-bottom: 32px; font-weight: 500;
+    }
+    .hero-badge::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--neon); animation: blink 1.5s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif; font-size: clamp(2.8rem, 8vw, 6.5rem);
+      font-weight: 800; line-height: 1.0; letter-spacing: -2px; color: var(--white);
+      margin-bottom: 24px;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--v2), var(--neon));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.1rem; color: var(--muted); max-width: 560px; margin: 0 auto 44px;
+      line-height: 1.75; font-weight: 300;
+    }
+
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--v), var(--v2));
+      color: var(--white); padding: 14px 32px; border-radius: 50px;
+      text-decoration: none; font-weight: 600; font-size: 0.9rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 30px rgba(124,58,237,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(124,58,237,0.5); }
+
+    .btn-ghost {
+      background: transparent; color: var(--white); padding: 14px 32px; border-radius: 50px;
+      text-decoration: none; font-weight: 600; font-size: 0.9rem;
+      border: 1px solid var(--border); transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--neon); color: var(--neon); }
+
+    /* scroll indicator */
+    .scroll-ind {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: var(--muted); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    .scroll-ind svg { width: 20px; opacity: 0.5; }
+    @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+    /* floating stats */
+    .hero-stats {
+      display: flex; gap: 40px; justify-content: center; margin-top: 64px;
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800;
+      color: var(--white); line-height: 1;
+    }
+    .stat-num span { color: var(--neon); }
+    .stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+    /* ─── SECTIONS ─── */
+    section { position: relative; z-index: 1; }
+
+    .section-tag {
+      display: inline-block; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--neon); font-weight: 600; margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800; color: var(--white); line-height: 1.1; letter-spacing: -1px;
+    }
+
+    .section-desc {
+      color: var(--muted); font-size: 1.05rem; line-height: 1.75;
+      max-width: 560px; font-weight: 300; margin-top: 16px;
+    }
+
+    /* ─── QUÉ HACEMOS ─── */
+    .que-hacemos {
+      padding: 120px 5vw; background: var(--dark2);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .que-wrap { max-width: 1200px; margin: 0 auto; }
+    .que-header { display: flex; gap: 80px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 72px; }
+    .que-header .section-desc { margin-top: 0; }
+
+    .que-cards {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px;
+      background: var(--border); border: 1px solid var(--border); border-radius: var(--r);
+      overflow: hidden;
+    }
+    .que-card {
+      background: var(--dark2); padding: 40px 36px;
+      transition: background 0.3s; cursor: default; position: relative; overflow: hidden;
+    }
+    .que-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(124,58,237,0.08), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .que-card:hover { background: var(--dark3); }
+    .que-card:hover::before { opacity: 1; }
+
+    .que-card-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.25);
+      display: flex; align-items: center; justify-content: center; margin-bottom: 24px;
+      font-size: 1.4rem;
+    }
+    .que-card h3 {
+      font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700;
+      color: var(--white); margin-bottom: 12px;
+    }
+    .que-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.65; }
+
+    /* ─── SERVICIOS ─── */
+    .servicios { padding: 120px 5vw; }
+    .servicios-wrap { max-width: 1200px; margin: 0 auto; }
+    .servicios-header { margin-bottom: 72px; }
+
+    .servicios-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+
+    @media (max-width: 900px) { .servicios-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 560px) { .servicios-grid { grid-template-columns: 1fr; } }
+
+    .svc-card {
+      background: var(--dark3); border: 1px solid var(--border); border-radius: var(--r);
+      padding: 36px 32px; position: relative; overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      display: flex; flex-direction: column;
+    }
+    .svc-card:hover { border-color: rgba(124,58,237,0.4); transform: translateY(-4px); }
+
+    /* featured card */
+    .svc-card.featured {
+      grid-column: span 1; background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(168,85,247,0.1));
+      border-color: rgba(124,58,237,0.35);
+    }
+
+    .svc-num {
+      font-family: 'Syne', sans-serif; font-size: 0.7rem; color: var(--v2);
+      letter-spacing: 2px; font-weight: 600; margin-bottom: 20px;
+    }
+    .svc-icon { font-size: 2rem; margin-bottom: 16px; }
+    .svc-card h3 {
+      font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700;
+      color: var(--white); margin-bottom: 12px;
+    }
+    .svc-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.65; flex: 1; }
+    .svc-link {
+      display: inline-flex; align-items: center; gap: 6px; margin-top: 24px;
+      color: var(--neon); font-size: 0.82rem; font-weight: 600; text-decoration: none;
+      letter-spacing: 0.5px; transition: gap 0.2s;
+    }
+    .svc-link:hover { gap: 10px; }
+    .svc-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--v), var(--neon));
+      transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+    }
+    .svc-card:hover::after { transform: scaleX(1); }
+
+    /* ─── PROCESO ─── */
+    .proceso {
+      padding: 120px 5vw; background: var(--dark2);
+      border-top: 1px solid var(--border);
+    }
+    .proceso-wrap { max-width: 1200px; margin: 0 auto; }
+    .proceso-steps {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 0;
+      margin-top: 72px; position: relative;
+    }
+    .proceso-steps::before {
+      content: ''; position: absolute; top: 28px; left: 12.5%; right: 12.5%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--v), var(--neon), var(--v), transparent);
+      z-index: 0;
+    }
+    .step { text-align: center; padding: 0 24px; position: relative; }
+    .step-num {
+      width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 24px;
+      background: var(--dark); border: 1px solid var(--v);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 800;
+      color: var(--neon); position: relative; z-index: 1;
+      box-shadow: 0 0 20px rgba(124,58,237,0.3);
+    }
+    .step h4 {
+      font-family: 'Syne', sans-serif; font-weight: 700; color: var(--white);
+      margin-bottom: 10px; font-size: 1rem;
+    }
+    .step p { color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
+
+    @media (max-width: 768px) {
+      .proceso-steps { grid-template-columns: repeat(2,1fr); gap: 48px; }
+      .proceso-steps::before { display: none; }
+    }
+    @media (max-width: 480px) { .proceso-steps { grid-template-columns: 1fr; } }
+
+    /* ─── DISEÑO RESPONSIVE ─── */
+    .responsive-sec {
+      padding: 120px 5vw; display: flex; align-items: center;
+      gap: 80px; max-width: 1200px; margin: 0 auto;
+    }
+    .responsive-text { flex: 1; min-width: 280px; }
+    .responsive-visual { flex: 1; min-width: 280px; display: flex; justify-content: center; }
+    .device-stack { position: relative; width: 320px; height: 280px; }
+
+    .device {
+      position: absolute; border-radius: 12px;
+      background: var(--dark3); border: 2px solid var(--border);
+      overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .device-desktop { width: 280px; height: 180px; top: 0; left: 20px; }
+    .device-mobile { width: 90px; height: 160px; border-radius: 16px; bottom: 10px; right: 0; }
+    .device-inner {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(9,9,11,1));
+      display: flex; align-items: center; justify-content: center;
+    }
+    .device-inner-lines {
+      display: flex; flex-direction: column; gap: 6px; padding: 16px; width: 100%;
+    }
+    .d-line {
+      height: 6px; border-radius: 3px; background: rgba(255,255,255,0.1);
+      animation: shimmer 2s ease-in-out infinite;
+    }
+    .d-line:nth-child(1) { width: 70%; animation-delay: 0s; }
+    .d-line:nth-child(2) { width: 50%; animation-delay: 0.2s; }
+    .d-line:nth-child(3) { width: 85%; animation-delay: 0.4s; }
+    .d-line:nth-child(4) { width: 40%; animation-delay: 0.6s; }
+    @keyframes shimmer {
+      0%,100% { background: rgba(255,255,255,0.07); }
+      50% { background: rgba(124,58,237,0.3); }
+    }
+
+    .check-list { list-style: none; margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
+    .check-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      color: var(--text); font-size: 0.95rem; line-height: 1.5;
+    }
+    .check-icon {
+      width: 22px; height: 22px; border-radius: 50%; background: rgba(6,214,160,0.15);
+      border: 1px solid rgba(6,214,160,0.4); display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0; margin-top: 1px;
+      color: var(--accent); font-size: 0.7rem; font-weight: 700;
+    }
+
+    .testimonios { padding: 120px 5vw; background: var(--dark2); border-top: 1px solid var(--border); }
+    .testimonios-wrap { max-width: 1200px; margin: 0 auto; }
+    .testimonios-header { margin-bottom: 64px; }
+    .testi-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;
+    }
+    .testi-card {
+      background: var(--dark3); border: 1px solid var(--border); border-radius: var(--r);
+      padding: 36px 32px; position: relative; overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .testi-card:hover { border-color: rgba(124,58,237,0.3); transform: translateY(-4px); }
+    .testi-quote {
+      font-size: 2.5rem; color: var(--v); line-height: 1; margin-bottom: 20px;
+      font-family: Georgia, serif;
+    }
+    .testi-text {
+      color: var(--text); font-size: 0.95rem; line-height: 1.75;
+      margin-bottom: 28px; font-style: italic; font-weight: 300;
+    }
+    .testi-author { display: flex; align-items: center; gap: 14px; }
+    .testi-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--v), var(--neon));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; color: white;
+      flex-shrink: 0;
+    }
+    .testi-name { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--white); font-size: 0.9rem; }
+    .testi-role { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+    .testi-stars { display: flex; gap: 3px; margin-bottom: 20px; }
+    .star { color: #f59e0b; font-size: 0.85rem; }
+
+    .testi-card.big {
+      grid-column: span 2;
+      background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(168,85,247,0.05));
+      border-color: rgba(124,58,237,0.3);
+    }
+    @media (max-width: 768px) { .testi-card.big { grid-column: span 1; } }
+
+    /* ─── POR QUÉ ─── */
+    .porque { padding: 120px 5vw; border-top: 1px solid var(--border); }
+    .porque-wrap { max-width: 1200px; margin: 0 auto; display: flex; gap: 80px; flex-wrap: wrap; align-items: center; }
+    .porque-text { flex: 1; min-width: 280px; }
+    .porque-items { flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 20px; }
+    .porque-item {
+      display: flex; gap: 20px; align-items: flex-start;
+      background: var(--dark3); border: 1px solid var(--border); border-radius: var(--r);
+      padding: 24px; transition: border-color 0.3s;
+    }
+    .porque-item:hover { border-color: rgba(124,58,237,0.3); }
+    .porque-item-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: rgba(124,58,237,0.15); display: flex; align-items: center;
+      justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+    }
+    .porque-item h4 {
+      font-family: 'Syne', sans-serif; font-weight: 700; color: var(--white);
+      font-size: 0.95rem; margin-bottom: 6px;
+    }
+    .porque-item p { color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
+
+    /* ─── CTA ─── */
+    .cta {
+      padding: 120px 5vw; text-align: center;
+      background: radial-gradient(ellipse at center, rgba(124,58,237,0.15) 0%, transparent 70%);
+      border-top: 1px solid var(--border);
+    }
+    .cta-inner { max-width: 700px; margin: 0 auto; }
+    .cta h2 {
+      font-family: 'Syne', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800; color: var(--white); letter-spacing: -1px; margin-bottom: 20px;
+    }
+    .cta h2 span { color: var(--neon); }
+    .cta p { color: var(--muted); font-size: 1.05rem; margin-bottom: 44px; font-weight: 300; }
+    .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark2); border-top: 1px solid var(--border);
+      padding: 60px 5vw 40px;
+    }
+    .footer-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px;
+    }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    .footer-brand .nav-logo { display: block; margin-bottom: 16px; }
+    .footer-brand p { color: var(--muted); font-size: 0.88rem; line-height: 1.65; max-width: 280px; }
+    .footer-qr-wrap { margin-top: 28px; display: flex; align-items: center; gap: 16px; }
+    .footer-qr-wrap img { width: 72px; height: 72px; border-radius: 8px; }
+    .footer-qr-wrap p { color: var(--muted); font-size: 0.78rem; line-height: 1.5; }
+
+    .footer-col h5 {
+      font-family: 'Syne', sans-serif; font-weight: 700; color: var(--white);
+      font-size: 0.85rem; margin-bottom: 20px; letter-spacing: 0.5px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-col ul a {
+      color: var(--muted); font-size: 0.85rem; text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: var(--neon); }
+
+    .footer-bottom {
+      max-width: 1200px; margin: 40px auto 0;
+      padding-top: 28px; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: gap;
+      color: var(--muted); font-size: 0.8rem;
+    }
+    .footer-bottom a { color: var(--muted); text-decoration: none; }
+
+    /* ─── FLOATING BUTTONS ─── */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 500;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #25D366; color: white; display: flex;
+      align-items: center; justify-content: center; font-size: 1.5rem;
+      text-decoration: none; box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.2s;
+    }
+    .wa-float.show { opacity: 1; pointer-events: all; }
+    .wa-float:hover { transform: scale(1.1); box-shadow: 0 12px 30px rgba(37,211,102,0.5); }
+
+    .scroll-up {
+      position: fixed; bottom: 96px; right: 28px; z-index: 500;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--mid); border: 1px solid var(--border);
+      color: var(--white); display: flex; align-items: center; justify-content: center;
+      text-decoration: none; font-size: 1rem;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.2s;
+    }
+    .scroll-up.show { opacity: 1; pointer-events: all; }
+    .scroll-up:hover { transform: translateY(-2px); }
+
+    /* ─── ANIMATIONS ─── */
+    .reveal {
+      opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .responsive-sec { flex-direction: column; }
+      .que-header { gap: 32px; flex-direction: column; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .burger { display: flex; }
+      .hero h1 { letter-spacing: -1px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<div id="loader">
+  <div class="l-logo">UPYA<span>.</span></div>
+  <div class="l-bar-wrap"><div class="l-bar" id="lBar"></div></div>
+  <div class="l-pct" id="lPct">0%</div>
+</div>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#inicio" onclick="closeMobile()">Inicio</a>
+  <a href="#servicios" onclick="closeMobile()">Servicios</a>
+  <a href="#proceso" onclick="closeMobile()">Proceso</a>
+  <a href="#testimonios" onclick="closeMobile()">Clientes</a>
+  <a href="#contacto" onclick="closeMobile()">Contacto</a>
+</div>
+
+<nav id="nav">
+  <a href="#inicio" class="nav-logo">UPYA<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#testimonios">Clientes</a></li>
+    <li><a href="#contacto" class="nav-cta">Contacto</a></li>
+  </ul>
+  <div class="burger" id="burger" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<section class="hero" id="inicio">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">Tandil · Buenos Aires · Argentina</div>
+    <h1>
+      Tecnología que<br><span class="highlight">impulsa negocios</span>
+    </h1>
+    <p>Desarrollamos sitios web, sistemas de gestión y soluciones digitales a medida. Creatividad, código y estrategia en un solo lugar.</p>
+    <div class="hero-btns">
+      <a href="#contacto" class="btn-primary">Empecemos →</a>
+      <a href="#servicios" class="btn-ghost">Ver servicios</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">50<span>+</span></div>
+        <div class="stat-label">Proyectos</div>
       </div>
-    <header>
-      <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">
-            <img src="img/image.png" alt="Upya Digital Logo" class="logo">
-          </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item"><a class="nav-link" href="index.html">INICIO</a></li>
-                <li class="nav-item"><a class="nav-link" href="about.html">SOBRE NOSOTROS</a></li>
-                <li class="nav-item"><a class="nav-link" href="services.html">SERVICIOS</a></li>
-                <li class="nav-item"><a class="nav-link" href="contact.html">CONTACTO</a></li>
-              </ul>
+      <div class="stat">
+        <div class="stat-num">100<span>%</span></div>
+        <div class="stat-label">Satisfacción</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">24<span>hs</span></div>
+        <div class="stat-label">Soporte</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-ind">
+    <svg viewBox="0 0 20 30" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="1" y="1" width="18" height="28" rx="9"/>
+      <line x1="10" y1="8" x2="10" y2="14"/>
+    </svg>
+    scroll
+  </div>
+</section>
+
+<section class="que-hacemos" id="que-hacemos">
+  <div class="que-wrap">
+    <div class="que-header">
+      <div>
+        <span class="section-tag reveal">Qué hacemos</span>
+        <h2 class="section-title reveal">Soluciones digitales<br>de principio a fin</h2>
+      </div>
+      <p class="section-desc reveal">Desde el diseño hasta el deploy. Combinamos creatividad, código y estrategia para entregar productos que realmente funcionan.</p>
+    </div>
+    <div class="que-cards">
+      <div class="que-card reveal">
+        <div class="que-card-icon">🌐</div>
+        <h3>Desarrollo Web</h3>
+        <p>Sitios modernos, rápidos y escalables. Desde landing pages hasta plataformas completas con diseño personalizado.</p>
+      </div>
+      <div class="que-card reveal reveal-delay-1">
+        <div class="que-card-icon">⚙️</div>
+        <h3>Automatizaciones</h3>
+        <p>Reducimos tareas manuales: reportes automáticos, presupuestos, flujos de trabajo y mucho más.</p>
+      </div>
+      <div class="que-card reveal reveal-delay-2">
+        <div class="que-card-icon">🛒</div>
+        <h3>E-commerce</h3>
+        <p>Tiendas online listas para vender desde el día uno, con diseño, mantenimiento e integración completa.</p>
+      </div>
+      <div class="que-card reveal reveal-delay-3">
+        <div class="que-card-icon">📊</div>
+        <h3>Sistemas de Gestión</h3>
+        <p>Software a medida para pymes y profesionales. Organización, administración y eficiencia en un solo sistema.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="servicios" id="servicios">
+  <div class="servicios-wrap">
+    <div class="servicios-header">
+      <span class="section-tag reveal">Servicios</span>
+      <h2 class="section-title reveal">Todo lo que necesitás<br>para crecer online</h2>
+    </div>
+    <div class="servicios-grid">
+
+      <div class="svc-card reveal">
+        <div class="svc-num">01</div>
+        <div class="svc-icon">🖥️</div>
+        <h3>Landing Page</h3>
+        <p>Páginas de conversión diseñadas para captar clientes. Ideal para marcas y profesionales que quieren digitalizarse rápido.</p>
+        <a href="#contacto" class="svc-link">Consultar →</a>
+      </div>
+
+      <div class="svc-card reveal reveal-delay-1">
+        <div class="svc-num">02</div>
+        <div class="svc-icon">🌐</div>
+        <h3>Sitios Web Profesionales</h3>
+        <p>Webs a medida, modernas y completamente personalizadas para negocios que buscan ampliar su presencia digital.</p>
+        <a href="#contacto" class="svc-link">Consultar →</a>
+      </div>
+
+      <div class="svc-card reveal reveal-delay-2">
+        <div class="svc-num">03</div>
+        <div class="svc-icon">⚡</div>
+        <h3>Automatizaciones</h3>
+        <p>Generadores de informes, reportes y presupuestos automáticos. Ahorrá tiempo y eliminá errores humanos.</p>
+        <a href="#contacto" class="svc-link">Consultar →</a>
+      </div>
+
+      <div class="svc-card reveal">
+        <div class="svc-num">04</div>
+        <div class="svc-icon">📅</div>
+        <h3>Soluciones para Profesionales</h3>
+        <p>Agendas digitales, gestión de turnos e invitaciones interactivas. Modernizá tu negocio y sorprendé a tus clientes.</p>
+        <a href="#contacto" class="svc-link">Consultar →</a>
+      </div>
+
+      <div class="svc-card featured reveal reveal-delay-1">
+        <div class="svc-num">05</div>
+        <div class="svc-icon">🛒</div>
+        <h3>E-commerce Completo</h3>
+        <p>Tiendas online con diseño, mantenimiento e implementación. Empezá a vender desde cualquier lugar del país.</p>
+        <a href="#contacto" class="svc-link">Consultar →</a>
+      </div>
+
+      <div class="svc-card reveal reveal-delay-2">
+        <div class="svc-num">06</div>
+        <div class="svc-icon">📊</div>
+        <h3>Sistemas de Gestión</h3>
+        <p>Software para pymes que optimiza procesos, mejora la organización y facilita la administración diaria.</p>
+        <a href="#contacto" class="svc-link">Consultar →</a>
+      </div>
+
+      <div class="svc-card reveal">
+        <div class="svc-num">07</div>
+        <div class="svc-icon">🔍</div>
+        <h3>SEO y Visibilidad Web</h3>
+        <p>Posicionamiento orgánico para que tu sitio aparezca primero. Estrategias profesionales con resultados medibles.</p>
+        <a href="#contacto" class="svc-link">Consultar →</a>
+      </div>
+
+      <div class="svc-card reveal reveal-delay-1">
+        <div class="svc-num">08</div>
+        <div class="svc-icon">🖧</div>
+        <h3>Hosting Seguro</h3>
+        <p>Hosting confiable y escalable para que tu web siempre funcione rápido y sin interrupciones.</p>
+        <a href="#contacto" class="svc-link">Consultar →</a>
+      </div>
+
+      <div class="svc-card reveal reveal-delay-2">
+        <div class="svc-num">09</div>
+        <div class="svc-icon">🔗</div>
+        <h3>Registro de Dominio</h3>
+        <p>Registramos tu dominio nacional o internacional de forma simple y al mejor costo del mercado.</p>
+        <a href="#contacto" class="svc-link">Consultar →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section style="border-top: 1px solid var(--border); background: var(--dark2);">
+  <div class="responsive-sec">
+    <div class="responsive-text reveal">
+      <span class="section-tag">Diseño</span>
+      <h2 class="section-title" style="font-size: clamp(1.8rem,4vw,2.8rem);">Responsive de<br>verdad</h2>
+      <p class="section-desc">Tecnología de última generación para que tu sitio se vea perfecto en cualquier dispositivo. Tablet, mobile, desktop.</p>
+      <ul class="check-list">
+        <li><span class="check-icon">✓</span> Diseño adaptativo en todos los tamaños de pantalla</li>
+        <li><span class="check-icon">✓</span> Interfaces intuitivas y navegación fluida</li>
+        <li><span class="check-icon">✓</span> Compatible con todos los navegadores modernos</li>
+        <li><span class="check-icon">✓</span> Optimizado para velocidad de carga</li>
+      </ul>
+    </div>
+    <div class="responsive-visual reveal reveal-delay-1">
+      <div class="device-stack">
+        <div class="device device-desktop">
+          <div class="device-inner">
+            <div class="device-inner-lines">
+              <div class="d-line" style="height:12px; width:50%; background: rgba(124,58,237,0.4); border-radius:4px;"></div>
+              <div class="d-line"></div>
+              <div class="d-line"></div>
+              <div class="d-line" style="width:60%;"></div>
+              <div class="d-line" style="width:40%;"></div>
+              <div class="d-line" style="width:80%;"></div>
+              <div class="d-line" style="width:55%;"></div>
             </div>
-        </div>
-      </nav>
-    </header>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <section class="hero hero-index">
-      <h1 class="mb-4 fw-bold" style="font-size: 2.5rem;">INNOVACIÓN DIGITAL PARA TU NEGOCIO</h1>
-      <h5>En<strong> Upya Digital</strong> transformamos ideas en <strong> soluciones tecnológicas</strong> que impulsan el crecimiento de negocios y proyectos. Nos especializamos en el desarrollo de sitios web modernos, aplicaciones interactivas <strong> con estrategias digitales,</strong> combinando creatividad y tecnología para entregar <strong>experiencias únicas</strong>. Ofrecemos productos funcionales, personalizados y escalables.</h5>
-      <br></br>
-       <a href="contact.html" class="btn btn-light btn-lg fw-bold px-4 py-2" style="border-radius: 50px;">
-          ¡Empecemos!
-        </a>
-    </section>
-    <section class="descripcion">
-      <h2 class="mb-4 fw-bold" style="font-size: 2.5rem;">QUÉ HACEMOS</h2>
-      <h5 class="mb-5" style="font-size: 1.2rem; max-width: 800px; margin: 0 auto;">Creamos soluciones tecnológicas que combinan innovación, diseño y funcionalidad.<strong> Brindamos soporte técnico, implementación de sistemas</strong> y asesoramiento continuo.</h5>
-    </section>  
-    <section id="porque-elegirnos" class="py-5 text-center">
-      <div class="container">
-        <h2 class="mb-4 fw-bold" style="font-size: 2.5rem;">POR QUÉ ELEGIRNOS</h2>
-        <p class="mb-5" style="font-size: 1.2rem; max-width: 800px; margin: 0 auto;">
-          Porque nuestro enfoque va más allá de la digitalización: creamos soluciones para que puedas optimizar tu rendimiento y el de tu equipo de trabajo.
-        
-          <br><br>
-        </p>
-        <a href="contact.html" class="btn btn-light btn-lg fw-bold px-4 py-2" style="border-radius: 50px;">
-          Contáctanos
-        </a>
-      </div>
-    </section>
-    <footer class="footer">
-      <div class="footer-content">
-        <div class="footer-top">
-          <div class="footer-qr">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://wa.me/5492281478521" 
-                alt="WhatsApp QR">
-            <p>Escaneá para contactarnos</p>
           </div>
         </div>
-        <p>© 2026 Upya Digital. Todos los derechos reservados.</p>
-        <p>
-      </p>
-        <p> <i class="bi bi-geo-alt"></i> Buenos Aires-Argentina</p>
+        <div class="device device-mobile">
+          <div class="device-inner">
+            <div class="device-inner-lines">
+              <div class="d-line" style="height:8px; background:rgba(168,85,247,0.4); border-radius:4px;"></div>
+              <div class="d-line" style="width:90%;"></div>
+              <div class="d-line" style="width:80%;"></div>
+              <div class="d-line" style="width:95%;"></div>
+            </div>
+          </div>
+        </div>
       </div>
-    </footer>
-    <a href="#" class="scroll-top">
-      <i class="bi bi-arrow-up"></i>
-    </a>
-    <a href="https://wa.me/5492281478521" target="_blank" class="whatsapp-float">
-      <i class="bi bi-whatsapp"></i>
-    </a>
-    <script>
-      let progress = 0;
-      const progressBar = document.getElementById('progress-bar');
-      const percent = document.getElementById('percent');
-      const loader = document.getElementById('loader');
-      const content = document.getElementById('content');
-      document.body.style.overflow = 'hidden';
+    </div>
+  </div>
+</section>
 
-      const interval = setInterval(() => {
-        progress++;
-        progressBar.style.width = progress + '%';
-        percent.textContent = progress + '%';
+<section class="proceso" id="proceso">
+  <div class="proceso-wrap">
+    <div style="text-align:center; margin-bottom: 0;">
+      <span class="section-tag reveal">Cómo trabajamos</span>
+      <h2 class="section-title reveal">Un proceso claro<br>de principio a fin</h2>
+    </div>
+    <div class="proceso-steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <h4>Diagnóstico</h4>
+        <p>Escuchamos tus necesidades y analizamos tu negocio para entender qué solución es la ideal.</p>
+      </div>
+      <div class="step reveal reveal-delay-1">
+        <div class="step-num">02</div>
+        <h4>Diseño</h4>
+        <p>Creamos wireframes y prototipos visuales para que apruebes el diseño antes de codear.</p>
+      </div>
+      <div class="step reveal reveal-delay-2">
+        <div class="step-num">03</div>
+        <h4>Desarrollo</h4>
+        <p>Construimos tu solución con tecnología de vanguardia, testeos continuos y atención al detalle.</p>
+      </div>
+      <div class="step reveal reveal-delay-3">
+        <div class="step-num">04</div>
+        <h4>Lanzamiento</h4>
+        <p>Publicamos tu proyecto y te acompañamos con soporte y mantenimiento continuo.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-        if(progress >= 100){
-          clearInterval(interval);
-          let opacity = 1;
-          const fadeOut = setInterval(() => {
-            opacity -= 0.05;
-            loader.style.opacity = opacity;
-            if(opacity <= 0){
-              clearInterval(fadeOut);
-              loader.style.display = 'none';
-              content.style.display = 'block';
-            }
-          }, 30);
-        }
-         document.body.style.overflow = 'auto';
-      }, 20); 
-   
+<section class="testimonios" id="testimonios">
+  <div class="testimonios-wrap">
+    <div class="testimonios-header">
+      <span class="section-tag reveal">Testimonios</span>
+      <h2 class="section-title reveal">Lo que dicen<br>nuestros clientes</h2>
+    </div>
+    <div class="testi-grid">
 
-      AOS.init({
-      duration: 1000, 
-      once: false  
-      });
-      
-      const btnWhatsApp = document.querySelector('.whatsapp-float');
-      const btnScroll = document.querySelector('.scroll-top');
+      <div class="testi-card big reveal">
+        <div class="testi-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          <span class="star">★</span><span class="star">★</span>
+        </div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Upya Digital transformó por completo la presencia online de nuestro negocio. El sitio que nos entregaron superó todas nuestras expectativas: moderno, rápido y muy fácil de usar. Desde que lo lanzamos, los clientes nos contactan directamente por la web.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">MP</div>
+          <div>
+            <div class="testi-name">María Paz R.</div>
+            <div class="testi-role">Propietaria · Estudio de Yoga</div>
+          </div>
+        </div>
+      </div>
 
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 200) {
-          btnWhatsApp.classList.add('show');
-          btnScroll.classList.add('show');
-        } else {
-          btnWhatsApp.classList.remove('show');
-          btnScroll.classList.remove('show');
-        }
-      });
+      <div class="testi-card reveal reveal-delay-1">
+        <div class="testi-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          <span class="star">★</span><span class="star">★</span>
+        </div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">El sistema de gestión que desarrollaron nos ahorró horas de trabajo semanal. Atención excelente y siempre disponibles para ayudar.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">CL</div>
+          <div>
+            <div class="testi-name">Carlos L.</div>
+            <div class="testi-role">Director · Empresa de Servicios</div>
+          </div>
+        </div>
+      </div>
 
-      btnScroll.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-      
-    </script>
-  </body>
+      <div class="testi-card reveal reveal-delay-2">
+        <div class="testi-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          <span class="star">★</span><span class="star">★</span>
+        </div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Lanzamos nuestra tienda online con Upya y en el primer mes ya superamos las ventas que hacíamos físicamente. Los recomiendo 100%.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SG</div>
+          <div>
+            <div class="testi-name">Sofía G.</div>
+            <div class="testi-role">Emprendedora · Tienda de Ropa</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          <span class="star">★</span><span class="star">★</span>
+        </div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Muy profesionales. El SEO que implementaron nos hizo aparecer en los primeros resultados de Google en pocas semanas.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">JM</div>
+          <div>
+            <div class="testi-name">Javier M.</div>
+            <div class="testi-role">Contador · Consultora</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal reveal-delay-1">
+        <div class="testi-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          <span class="star">★</span><span class="star">★</span>
+        </div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">La agenda digital para turnos fue un cambio total. Mis clientes pueden reservar solos y yo me despreocupo de la organización.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">LV</div>
+          <div>
+            <div class="testi-name">Laura V.</div>
+            <div class="testi-role">Esteticista · Centro de Estética</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="porque" id="porque">
+  <div class="porque-wrap">
+    <div class="porque-text reveal">
+      <span class="section-tag">Por qué elegirnos</span>
+      <h2 class="section-title">Más que una agencia,<br>un socio digital</h2>
+      <p class="section-desc" style="margin-bottom: 32px;">Nuestro enfoque va más allá de la digitalización: creamos soluciones que optimizan tu rendimiento y el de tu equipo.</p>
+      <a href="#contacto" class="btn-primary">Hablemos →</a>
+    </div>
+    <div class="porque-items reveal reveal-delay-1">
+      <div class="porque-item">
+        <div class="porque-item-icon">🎯</div>
+        <div>
+          <h4>Escucha activa</h4>
+          <p>Trabajamos codo a codo con cada cliente, entendiendo sus necesidades reales antes de proponer soluciones.</p>
+        </div>
+      </div>
+      <div class="porque-item">
+        <div class="porque-item-icon">⚡</div>
+        <div>
+          <h4>Entrega rápida</h4>
+          <p>Procesos ágiles y comunicación constante para que tu proyecto esté listo en el menor tiempo posible.</p>
+        </div>
+      </div>
+      <div class="porque-item">
+        <div class="porque-item-icon">🔒</div>
+        <div>
+          <h4>Soporte continuo</h4>
+          <p>No desaparecemos después de entregar. Te acompañamos con mantenimiento y soporte técnico.</p>
+        </div>
+      </div>
+      <div class="porque-item">
+        <div class="porque-item-icon">📈</div>
+        <div>
+          <h4>Resultados medibles</h4>
+          <p>Enfocados en que tu inversión tenga retorno real: más clientes, más ventas, más eficiencia.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contacto">
+  <div class="cta-inner reveal">
+    <span class="section-tag">Contacto</span>
+    <h2>¿Listo para dar el<br><span>siguiente paso?</span></h2>
+    <p>Contanos tu idea y te respondemos en menos de 24 horas. Sin compromisos, sin burocracia.</p>
+    <div class="cta-btns">
+      <a href="https://wa.me/5492281478521" target="_blank" class="btn-primary">Escribinos por WhatsApp →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#inicio" class="nav-logo">UPYA<span>.</span></a>
+      <p>Agencia digital especializada en desarrollo web, automatizaciones y soluciones tecnológicas a medida. Tandil, Buenos Aires, Argentina.</p>
+      <div class="footer-qr-wrap">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://wa.me/5492281478521&bgcolor=111114&color=c084fc" alt="WhatsApp QR">
+        <p>Escaneá para<br>contactarnos por<br>WhatsApp</p>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Servicios</h5>
+      <ul>
+        <li><a href="#servicios">Landing Page</a></li>
+        <li><a href="#servicios">Sitios Web</a></li>
+        <li><a href="#servicios">E-commerce</a></li>
+        <li><a href="#servicios">Automatizaciones</a></li>
+        <li><a href="#servicios">SEO</a></li>
+        <li><a href="#servicios">Hosting</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Empresa</h5>
+      <ul>
+        <li><a href="#que-hacemos">Qué hacemos</a></li>
+        <li><a href="#proceso">Proceso</a></li>
+        <li><a href="#testimonios">Clientes</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="https://wa.me/5492281478521" target="_blank">WhatsApp</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Upya Digital. Todos los derechos reservados.</span>
+    <span>upyadigitalar@gmail.com</span>
+  </div>
+</footer>
+
+<a href="https://wa.me/5492281478521" target="_blank" class="wa-float" id="waFloat">💬</a>
+<a href="#inicio" class="scroll-up" id="scrollUp">↑</a>
+
+<script>
+  let prog = 0;
+  const lBar = document.getElementById('lBar');
+  const lPct = document.getElementById('lPct');
+  const loader = document.getElementById('loader');
+  const iv = setInterval(() => {
+    prog++;
+    lBar.style.width = prog + '%';
+    lPct.textContent = prog + '%';
+    if (prog >= 100) {
+      clearInterval(iv);
+      setTimeout(() => {
+        loader.style.opacity = '0';
+        setTimeout(() => loader.style.display = 'none', 600);
+      }, 200);
+    }
+  }, 18);
+
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+    const show = window.scrollY > 300;
+    document.getElementById('waFloat').classList.toggle('show', show);
+    document.getElementById('scrollUp').classList.toggle('show', show);
+  });
+
+  document.getElementById('scrollUp').addEventListener('click', e => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  function toggleMobile() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMobile() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  const cur = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animateCursor() {
+    cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => { ring.style.width = '56px'; ring.style.height = '56px'; ring.style.opacity = '1'; });
+    el.addEventListener('mouseleave', () => { ring.style.width = '36px'; ring.style.height = '36px'; ring.style.opacity = '0.5'; });
+  });
+
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => obs.observe(r));
+</script>
+</body>
 </html>
